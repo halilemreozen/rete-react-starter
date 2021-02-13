@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "checkJs": true,
+        "jsx": "react-jsx",
+        "resolveJsonModule": true,
+        "baseUrl": "./src"
+    },
+    "exclude": [
+        "dist",
+        "node_modules"
+    ]
+  }
