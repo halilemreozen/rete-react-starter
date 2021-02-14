@@ -1,10 +1,10 @@
 import Rete from "rete";
 
-export default class NumberControl extends Rete.Control {
+export  default class StringControl extends Rete.Control {
 
   static component = ({ value, onChange }) => (
     <input
-      type="number"
+      type="text"
       value={value}
       ref={ref => {
         ref && ref.addEventListener("pointerdown", e => e.stopPropagation());
@@ -17,7 +17,7 @@ export default class NumberControl extends Rete.Control {
     super(key);
     this.emitter = emitter;
     this.key = key;
-    this.component = NumberControl.component;
+    this.component = StringControl.component;
 
     const initial = node.data[key] || 0;
 

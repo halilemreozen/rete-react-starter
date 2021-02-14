@@ -1,11 +1,11 @@
 import './App.css';
 import React from 'react';
-import DesignerView from 'views/DesignerView.jsx';
+import MainView from 'views/MainView';
 
 function App() {
   return (
     <div className="App">
-      <DesignerView></DesignerView>
+      <MainView></MainView>
     </div>
   );
 }

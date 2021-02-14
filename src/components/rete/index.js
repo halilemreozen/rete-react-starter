@@ -1,21 +1,25 @@
 import Rete from "rete";
-import ReactRenderPlugin from "rete-react-render-plugin";
+import ReactRenderPlugin from "../../rete/index.jsx";
 import ConnectionPlugin from "rete-connection-plugin";
 import AreaPlugin from "rete-area-plugin";
 import NumberComponent from "components/rete/NumberComponent";
 import AddComponent from "components/rete/AddComponent";
 import DockPlugin from 'rete-dock-plugin';
 import ContextMenuPlugin, { Menu, Item, Search } from 'rete-context-menu-plugin';
+import { CustomReteNode } from "./CustomReteNode";
+import CodePlugin, { generate } from "./CodePlugin.js";
 
-
-
-export async function createEditor(refContainer, refDock) {
+export async function createEditor(editor, refDock, onCodeChaned) {
 
   var components = [new NumberComponent(), new AddComponent()];
 
-  var editor = new Rete.NodeEditor("demo@0.1.0", refContainer.current);
+  editor.use(ReactRenderPlugin, {
+    component: CustomReteNode
+  });
+
   editor.use(ConnectionPlugin);
-  editor.use(ReactRenderPlugin);
+  editor.use(CodePlugin);
+
 
   console.log(ConnectionPlugin)
   console.log(DockPlugin)
@@ -30,21 +34,9 @@ export async function createEditor(refContainer, refDock) {
     searchBar: false, // true by default
     searchKeep: title => true, // leave item when searching, optional. For example, title => ['Refresh'].includes(title)
     delay: 100,
-    allocate(component) {
-      return ['Submenu'];
-    },
-    rename(component) {
-      return component.name;
-    },
     items: {
       'Click me': () => { console.log('Works!') }
     },
-    nodeItems: {
-      'Click me'() { console.log('Works for node!') },
-      'Delete': false, // don't show Delete item
-      'Clone': false // or Clone item
-    },
-    // OR
     nodeItems: node => {
       if (node.name === 'Add') {
         return {
@@ -52,7 +44,12 @@ export async function createEditor(refContainer, refDock) {
         };
       }
       return {
-        'Click me'() { console.log('Works for node!') }
+        'Rename' : () => { 
+          let newName = prompt('New Name');
+          node.name = newName;
+          node.update();
+         },
+        'Click me 2' : () => { console.log('Works for node 2!') }
       }
     }
   });
@@ -83,6 +80,9 @@ export async function createEditor(refContainer, refDock) {
     "process nodecreated noderemoved connectioncreated connectionremoved",
     async () => {
       console.log("process");
+      const sourceCode = await generate(engine, editor.toJSON());
+      console.log(sourceCode);
+      onCodeChaned(sourceCode);
       await engine.abort();
       await engine.process(editor.toJSON());
     }
