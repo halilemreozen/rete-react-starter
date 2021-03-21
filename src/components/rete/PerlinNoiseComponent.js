@@ -61,27 +61,14 @@ export default class PerlinNoiseComponent extends ReteComponentWrapper {
     const realNode = this.editor.nodes
       .find(n => n.id == node.id)
       .controls.get("generatedCode");
-      
-      realNode.setValue(generatedCode);
+
+    realNode.setValue(generatedCode);
 
     outputs["generatedCode"] = generatedCode;
   }
 
   code(node, inputs, self) {
-/*
-    self.defineFunction(node.name, `const ${node.name} = function (${Object.keys(inputs).join()}) {
-      line(${Object.keys(inputs).join()})
-    };`);
-
-    const inputNodes = Array.from(Object.values( node.inputs ).map ( input => {
-      return input.connections.map(connection => {
-        return this.editor.nodes.find(n => n.id == connection.node)
-      });
-    })).flat();
-    
-    const params = inputNodes.map(n=>n.data.identifier).join();
-
-    return `${node.name}(${params});`;*/
+    // ToDo : Add component code generation template
   }
 
 }

@@ -52,21 +52,7 @@ export default class P5CanvasComponent extends ReteComponentWrapper {
   }
 
   code(node, inputs, self) {
-    /*
-        self.defineFunction(node.name, `const ${node.name} = function (${Object.keys(inputs).join()}) {
-          var args = Array.prototype.slice.call(arguments);
-          return args.reduce((accumulator, currentValue) => accumulator + currentValue)
-        };`);
-    
-        const inputNodes = Array.from(Object.values(node.inputs).map(input => {
-          return input.connections.map(connection => {
-            return this.editor.nodes.find(n => n.id == connection.node)
-          });
-        })).flat();
-    
-        const params = inputNodes.map(n => n.data.identifier).join();
-    
-        return `${node.name}(${params});`;*/
+    // ToDo : Add component code generation template
   }
 
 }

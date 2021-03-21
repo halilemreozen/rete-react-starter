@@ -18,7 +18,7 @@ export async function createEditor(editor, refDock, onCodeChaned) {
   var components = [new NumberComponent(), new AddComponent(), new P5LineComponent(), new P5CanvasComponent(), new PerlinNoiseComponent(), new RandomNumberComponent()];
 
   editor.use(ReactRenderPlugin, {
-    //component: CustomReteNode
+    //component: CustomReteNode // Default global node template
   });
 
   editor.use(ConnectionPlugin);
@@ -26,12 +26,12 @@ export async function createEditor(editor, refDock, onCodeChaned) {
 
   editor.use(DockPlugin, {
     container: refDock.current,
-    itemClass: 'dock-item', // default: dock-item 
-    plugins: [ReactRenderPlugin] // render plugins
+    itemClass: 'dock-item',
+    plugins: [ReactRenderPlugin]
   });
 
   editor.use(ContextMenuPlugin, {
-    searchBar: false, // true by default
+    searchBar: false,
     searchKeep: title => true, // leave item when searching, optional. For example, title => ['Refresh'].includes(title)
     delay: 100,
     items: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { kebab } from './utils';
+import { formatKebabCase } from './utils';
 import { Control } from './Control';
 import { Socket } from './Socket';
 
@@ -20,7 +20,7 @@ export class Node extends React.Component {
         const { outputs, controls, inputs, selected } = this.state;
 
         return (
-            <div className={`node ${selected} ${kebab(node.name)}`}>
+            <div className={`node ${selected} ${formatKebabCase(node.name)}`}>
                 <div className="title">{node.name}</div>
                 {/* Outputs */}
                 {outputs.map((output) => (

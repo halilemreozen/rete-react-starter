@@ -1,5 +1,4 @@
 import Rete from "rete";
-import { CustomReteNode } from "./CustomReteNode";
 import NumberControl from "./NumberControl";
 import { ReteComponentWrapper } from "./ReteComponentWrapper";
 import { socketNumber, socketString } from "./ReteSockets";
@@ -39,7 +38,7 @@ export default class RandomNumberComponent extends ReteComponentWrapper {
         super.worker(node, inputs, outputs);
 
         const second = (node.data.second == 0 ? 1 : node.data.second) * 1000;
-       
+
         node.data.timer = setTimeout(() => {
 
             const min = Math.ceil(node.data.min);
@@ -48,7 +47,7 @@ export default class RandomNumberComponent extends ReteComponentWrapper {
 
             if (rand == node.data.num) return;
             node.data.num = rand;
-            
+
             console.info('TIMER', node.data.timer, min, max, rand);
 
             this.editor.nodes
@@ -76,6 +75,6 @@ export default class RandomNumberComponent extends ReteComponentWrapper {
     };
 
     code(node, inputs, self) {
-        /*self.defineVariable(node.data.identifier,`const ${node.data.identifier} = ${node.data.num};`);*/
+        // ToDo : Add component code generation template
     }
 }
