@@ -14,14 +14,13 @@ export default function MainView() {
     const [code, setCode] = useState('// Hello World!');
 
     const onCodeChaned = (newCode) => {
-        console.log('Code Changed');
         setCode(newCode);
     }
 
     return (
         <Tabs>
             <TabList>
-                <Tab panel="designer">Designer</Tab>
+                <Tab panel="designer" default={true}>Designer</Tab>
                 <Tab panel="code">Code</Tab>
             </TabList>
 
@@ -29,7 +28,7 @@ export default function MainView() {
                 <DesignerView onCodeChaned={onCodeChaned}></DesignerView>
             </TabPanel>
             <TabPanel id="code">
-                <SyntaxHighlighter language="javascript" style={synthwave84}>
+                <SyntaxHighlighter className="SyntaxHighlighter" language="javascript" style={synthwave84} showLineNumbers={true}>
                     {code}
                 </SyntaxHighlighter>
             </TabPanel>
