@@ -1,45 +1,48 @@
 .editor {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
 
-  background: linear-gradient(90deg, #161122 21px, transparent 1%) center, linear-gradient(#161122 21px, transparent 1%) center, #a799cc;
-  background-size: 22px 22px;
+	background: linear-gradient(90deg, #161122 21px, transparent 1%) center, linear-gradient(#161122 21px, transparent 1%) center, #a799cc;
+	background-size: 22px 22px;
 }
 
 .dock {
-  height: 100vh;
-  width : 15vw;
-  padding:1em;
+	height: 100vh;
+	width: 15vw;
+	padding: 1em;
 
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+	display: flex;
+	flex-direction: column;
 
-  align-items: center;
-  justify-content: flex-start;
+	align-items: center;
+	justify-content: flex-start;
 
-  gap: 1em;
+	gap: 1em;
 
-  overflow-x:  hidden;
-  overflow-y:  auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 
-  background-color: #050a20;
+	background-color: #050a20;
 }
 
 .dock-item {
-  display: inline-block;
-  transform-origin: 50% 0;
+	display: inline-block;
+	transform-origin: 50% 0;
+}
+
+.dock-item:last-child {
+	margin-bottom: 5em;
 }
 
 .container {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
+	flex: 1;
+	overflow: hidden;
+	display: flex;
 }
 
-.editor .node{
-  background: rgba(110, 136, 255, 0.5);
+.editor .node {
+	background: rgba(110, 136, 255, 0.5);
 }
 
 
@@ -83,7 +86,8 @@
 	text-align: left;
 }
 
-.node .input-title, .node .output-title {
+.node .input-title,
+.node .output-title {
 	vertical-align: middle;
 	color: white;
 	display: inline-block;
@@ -134,6 +138,16 @@
 	margin-left: -12px;
 }
 
+.node-custom-body {
+	vertical-align: middle;
+	justify-content: center;
+	color: white;
+	display: inline-block;
+	font-family: sans-serif;
+	width: 100%;
+	height: 100%;
+}
+
 /* RETE */
 
 
@@ -141,11 +155,31 @@
 
 .TabList {
 	display: flex;
+	justify-content: flex-end;
 	gap: 1em;
+	padding-top: .5em;
+	padding-right: 2em;
+	background-color: #050a20;
 }
 
 .Tab {
-	background-color: red;
+	border-top-left-radius: .2em;
+	border-top-right-radius: .2em;
+	border-bottom: none;
+	padding: .5em;
+	cursor: pointer;
+	background-color: #0b1333;
+	color: white;
 }
 
-  /* TAB */
+.TabActive {
+	background-color: #22347c;
+}
+
+
+/* TAB */
+
+.SyntaxHighlighter {
+	height: 100vh;
+	margin: 0 !important;
+}

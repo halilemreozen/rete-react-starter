@@ -10,9 +10,17 @@ export class CustomReteNode extends Node {
     const { node, bindSocket, bindControl } = this.props;
     const { outputs, controls, inputs, selected } = this.state;
 
+    let title = `${node.data.identifier} (${node.name})`;
+    const isDockComponent = node.position[0] == 0 && node.position[1] == 0;
+    const codeType = node.data.codeType ?? 'UnknownCodeType';
+
+    if(isDockComponent || codeType == 'function'){
+      title = node.name;
+    }
+
     return (
       <div className={`node ${selected}`}>
-        <div className="title">{node.name}</div>
+        <div className="title">{title}</div>
         {/* Outputs */}
         {outputs.map(output => (
           <div className="output" key={output.key}>
