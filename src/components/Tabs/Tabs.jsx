@@ -37,11 +37,13 @@ export function TabList(props) {
 export function Tab(props) {
     const tabsContext = useContext(TabsContext);
 
+    let isActive = tabsContext.selectedTabId != null ? tabsContext.selectedTabId == props.panel : props.default;
+
     const onClick = () => {
         tabsContext.OnTabClick(props.panel);
     }
 
-    return <div className="Tab" {...props} onClick={ onClick }>
+    return <div className={`Tab ${isActive ? "TabActive" : ''}`} {...props} onClick={ onClick }>
         {props.children}
     </div>
 }
