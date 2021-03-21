@@ -15,10 +15,6 @@ export class Node extends React.Component {
         }
     }
 
-    fuck(){
-        alert('fuck');
-    }
-
     render() {
         const { node, bindSocket, bindControl } = this.props;
         const { outputs, controls, inputs, selected } = this.state;
