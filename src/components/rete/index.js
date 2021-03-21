@@ -8,21 +8,21 @@ import DockPlugin from 'rete-dock-plugin';
 import ContextMenuPlugin, { Menu, Item, Search } from 'rete-context-menu-plugin';
 import { CustomReteNode } from "./CustomReteNode";
 import CodePlugin, { generate } from "./CodePlugin.js";
+import P5LineComponent from "./P5LineComponent.js";
+import P5CanvasComponent from "./P5CanvasComponent.jsx";
+import PerlinNoiseComponent from "./PerlinNoiseComponent.js";
+import RandomNumberComponent from "./RandomNumberComponent.js";
 
 export async function createEditor(editor, refDock, onCodeChaned) {
 
-  var components = [new NumberComponent(), new AddComponent()];
+  var components = [new NumberComponent(), new AddComponent(), new P5LineComponent(), new P5CanvasComponent(), new PerlinNoiseComponent(), new RandomNumberComponent()];
 
   editor.use(ReactRenderPlugin, {
-    component: CustomReteNode
+    //component: CustomReteNode
   });
 
   editor.use(ConnectionPlugin);
   editor.use(CodePlugin);
-
-
-  console.log(ConnectionPlugin)
-  console.log(DockPlugin)
 
   editor.use(DockPlugin, {
     container: refDock.current,
@@ -37,20 +37,25 @@ export async function createEditor(editor, refDock, onCodeChaned) {
     items: {
       'Click me': () => { console.log('Works!') }
     },
-    nodeItems: node => {
-      if (node.name === 'Add') {
-        return {
-          'Only for Add nodes': () => { console.log('Works for add node!') },
-        };
-      }
-      return {
+    nodeItems: function(node) {
+
+      const contextMenuItems = {
+
         'Rename' : () => { 
           let newName = prompt('New Name');
-          node.name = newName;
+          node.data.identifier = newName;
           node.update();
          },
         'Click me 2' : () => { console.log('Works for node 2!') }
+      };
+
+      if (node.name === 'Add') {
+        Object.assign(contextMenuItems, {
+          'Only for Add nodes': () => { console.log('Works for add node!') },
+        });
       }
+      
+      return contextMenuItems;
     }
   });
 
@@ -61,27 +66,10 @@ export async function createEditor(editor, refDock, onCodeChaned) {
     engine.register(c);
   });
 
-  var n1 = await components[0].createNode({ num: 2 });
-  var n2 = await components[0].createNode({ num: 3 });
-  var add = await components[1].createNode();
-
-  n1.position = [80, 200];
-  n2.position = [80, 400];
-  add.position = [500, 240];
-
-  editor.addNode(n1);
-  editor.addNode(n2);
-  editor.addNode(add);
-
-  editor.connect(n1.outputs.get("num"), add.inputs.get("num1"));
-  editor.connect(n2.outputs.get("num"), add.inputs.get("num2"));
-
   editor.on(
     "process nodecreated noderemoved connectioncreated connectionremoved",
     async () => {
-      console.log("process");
       const sourceCode = await generate(engine, editor.toJSON());
-      console.log(sourceCode);
       onCodeChaned(sourceCode);
       await engine.abort();
       await engine.process(editor.toJSON());
