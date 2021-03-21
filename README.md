@@ -1,5 +1,7 @@
 # Rete React Starter
 
+## Caution : This Template developed for PoC purpose and shouldn't be used production environments.
+
 ## Designer view with no-code perspective
 ![nodes](https://user-images.githubusercontent.com/7620591/111913905-fa04d600-8a80-11eb-9c2a-04c045e1e22b.png)
 
